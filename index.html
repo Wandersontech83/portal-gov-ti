@@ -1610,13 +1610,13 @@ async function ask(q) {
   msgs.scrollTop = msgs.scrollHeight;
   btn.disabled = true;
   try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
+    const r = await fetch('https://wanlima.app.n8n.cloud/webhook/assistente-gov-ti, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: contextoIA(), messages: [{ role: 'user', content: q }] })
+      body: JSON.stringify({ mensagem: document.getElementById('aiInp').value.trim() }),
     });
     const d = await r.json();
-    const txt = d.content?.map(i=>i.text||'').join('') || 'Não consegui processar.';
+    const txt = d.output || d.text || d.message || 'Não consegui processar.';
     document.getElementById(lid).textContent = txt;
     document.getElementById(lid).classList.remove('loading');
   } catch(e) {
